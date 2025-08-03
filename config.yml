@@ -1,0 +1,331 @@
+backend:
+  name: git-gateway
+  repo: HowlEvents/howl-website
+  branch: main
+  identity_url: https://auth.decapbridge.com/sites/cd0d6fb9-f6b8-48cb-bbd5-02ed1463a8fb
+  gateway_url: https://gateway.decapbridge.com
+
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+
+media_folder: "assets/images"
+public_folder: "/images"
+
+site_url: https://howloween.ca
+
+collections:
+  - name: "menus"
+    label: "Site Menus"
+    files:
+      - file: "config/_default/menus.en.toml"
+        label: "Menus (KINDA BROKEN IN CMS, USE AT OWN PERIL)"
+        name: "menus_en"
+        format: toml
+        editor:
+          preview: false
+        fields:
+          - label: "Main Menu"
+            name: main
+            widget: list
+            summary: "{{name}} → {{url}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string", required: false }
+              - {
+                  label: "Parent",
+                  name: "parent",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Weight",
+                  name: "weight",
+                  widget: "number",
+                  required: false,
+                }
+          - label: "Footer Menu"
+            name: footer
+            widget: list
+            summary: "{{name}} → {{url}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - {
+                  label: "Weight",
+                  name: "weight",
+                  widget: "number",
+                  required: false,
+                }
+  - name: "pages"
+    label: "Pages"
+    folder: "content/english/pages"
+    create: true
+    format: "frontmatter"
+    extension: "md"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Meta Title",
+          name: "meta_title",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Draft", name: "draft", widget: "boolean", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "blog"
+    label: "Blog"
+    folder: "content/english/blog"
+    create: true
+    format: "frontmatter"
+    extension: "md"
+    slug: "blog/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Meta Title",
+          name: "meta_title",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - {
+          label: "Categories",
+          name: "categories",
+          widget: "list",
+          required: false,
+          summary: "{{fields}}",
+        }
+      - {
+          label: "Author",
+          name: "author",
+          widget: "string",
+          default: "Howloween Staff",
+        }
+      - {
+          label: "Tags",
+          name: "tags",
+          widget: "list",
+          required: false,
+          summary: "{{fields}}",
+        }
+      - { label: "Draft", name: "draft", widget: "boolean", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "reg-tiers"
+    label: "Reg Tiers"
+    summary: "{{weight}} - {{title}}"
+    sortable_fields: ["title", "weight", "commit_date"]
+    folder: "data/reg-tiers"
+    create: true
+    delete: true
+    format: "yaml"
+    extension: "yaml"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Price", name: "price", widget: "string", required: false }
+      - {
+          label: "Sale Price",
+          name: "salePrice",
+          widget: "string",
+          required: false,
+        }
+      - label: "Perks"
+        name: "perks"
+        widget: "list"
+        field: { label: "Perk", name: "perk", widget: "string" }
+      - {
+          label: "Bottom Text",
+          name: "postText",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Button URL",
+          name: "buttonURL",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Button Label",
+          name: "buttonLabel",
+          widget: "string",
+          default: "Register Now",
+          required: false,
+        }
+      - {
+          label: "Weight",
+          name: "weight",
+          widget: "number",
+          default: 1,
+          value_type: "int",
+          required: false,
+        }
+      - { label: "Draft", name: "draft", widget: "boolean", required: false }
+  - name: "dealers"
+    label: "Dealers"
+    summary: "{{table}} - {{title}}"
+    sortable_fields: ["title", "weight", "commit_date"]
+    folder: "data/dealers"
+    create: true
+    delete: true
+    format: "yaml"
+    extension: "yaml"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Image", name: "image", widget: "image", default: "/images/avatar.png" }
+      - {
+          label: "Weight",
+          name: "weight",
+          widget: "number",
+          value_type: "int",
+          default: 1,
+        }
+      - label: "Social Links"
+        name: "social"
+        widget: "list"
+        required: false
+        fields:
+          - label: "Platform"
+            name: "platform"
+            widget: "select"
+            options:
+              - { label: "Bluesky", value: "Bluesky" }
+              - { label: "Carrd", value: "Carrd" }
+              - { label: "Derpibooru", value: "Derpibooru" }
+              - { label: "DeviantArt", value: "DeviantArt" }
+              - { label: "Discord", value: "Discord" }
+              - { label: "Etsy", value: "Etsy" }
+              - { label: "Facebook", value: "Facebook" }
+              - { label: "FurAffinity", value: "FurAffinity" }
+              - { label: "Instagram", value: "Instagram" }
+              - { label: "Linktree", value: "Linktree" }
+              - { label: "Mastodon", value: "Mastodon" }
+              - { label: "Matrix", value: "Matrix" }
+              - { label: "MixCloud", value: "MixCloud" }
+              - { label: "Newgrounds", value: "Newgrounds" }
+              - { label: "Shop", value: "Shop" }
+              - { label: "SoundCloud", value: "SoundCloud" }
+              - { label: "Telegram", value: "Telegram" }
+              - { label: "Tumblr", value: "Tumblr" }
+              - { label: "Twitch", value: "Twitch" }
+              - { label: "Twitter", value: "Twitter" }
+              - { label: "Wattpad", value: "Wattpad" }
+              - { label: "Website", value: "Website" }
+              - { label: "YouTube", value: "YouTube" }
+          - { label: "Link", name: "link", widget: "string" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Table", name: "table", widget: "string", required: false }
+  - name: "home"
+    label: "Homepage"
+    files:
+      - name: "home"
+        label: "Homepage"
+        file: "content/english/_index.md"
+        format: "yaml"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - {
+              label: "Meta Title",
+              name: "meta_title",
+              widget: "string",
+              required: false,
+            }
+          - label: "Banner"
+            name: "banner"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - { label: "Location", name: "location", widget: "string" }
+              - { label: "Dates", name: "dates", widget: "string" }
+              - {
+                  label: "Content",
+                  name: "content",
+                  widget: "text",
+                  required: false,
+                }
+              - { label: "Image", name: "image", widget: "image" }
+              - {
+                  label: "Image Alt Text",
+                  name: "imagealt",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Button"
+                name: "button"
+                widget: "object"
+                fields:
+                  - {
+                      label: "Enable",
+                      name: "enable",
+                      widget: "boolean",
+                      required: false
+                    }
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "Link", name: "link", widget: "string" }
+
+          - label: "Features"
+            name: "features"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Image", name: "image", widget: "image" }
+              - {
+                  label: "Image Alt Text",
+                  name: "imagealt",
+                  widget: "string",
+                  required: false,
+                }
+              - { label: "Content", name: "content", widget: "text" }
+              - label: "Bullet Points"
+                name: "bulletpoints"
+                widget: "list"
+                field: { label: "Bullet", name: "bullet", widget: "string" }
+                required: false
+              - label: "Button"
+                name: "button"
+                widget: "object"
+                required: false
+                fields:
+                  - {
+                      label: "Enable",
+                      name: "enable",
+                      widget: "boolean",
+                      required: false
+                    }
+                  - {
+                      label: "Label",
+                      name: "label",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Link",
+                      name: "link",
+                      widget: "string",
+                      required: false,
+                    }
