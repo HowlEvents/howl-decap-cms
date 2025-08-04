@@ -92,7 +92,7 @@ collections:
     create: true
     format: "frontmatter"
     extension: "md"
-    preview_path: "blog/{{slug}}/"
+    preview_path: "blog/{{year}}/{{month}}/{{slug}}/"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - {
