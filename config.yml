@@ -69,7 +69,7 @@ collections:
     create: true
     format: "frontmatter"
     extension: "md"
-    slug: "{{slug}}"
+    preview_path: "{{slug}}/"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - {
@@ -92,7 +92,7 @@ collections:
     create: true
     format: "frontmatter"
     extension: "md"
-    slug: "blog/{{slug}}"
+    preview_path: "blog/{{slug}}/"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - {
@@ -142,6 +142,7 @@ collections:
     extension: "yaml"
     editor:
       preview: false
+    preview_path: "registration/"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Price", name: "price", widget: "string", required: false }
@@ -194,6 +195,7 @@ collections:
     extension: "yaml"
     editor:
       preview: false
+    preview_path: "dealers/"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Image", name: "image", widget: "image", default: "/images/avatar.png" }
