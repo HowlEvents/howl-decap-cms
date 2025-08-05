@@ -20,6 +20,11 @@ public_folder: "/images"
 
 site_url: https://howloween.ca
 
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
 collections:
   - name: "menus"
     label: "Site Menus"
@@ -241,6 +246,136 @@ collections:
           - { label: "Link", name: "link", widget: "string" }
       - { label: "Draft", name: "draft", widget: "boolean", default: false }
       - { label: "Table", name: "table", widget: "string", required: false }
+  - name: "artist-alley"
+    label: "Artist Alley"
+    summary: "{{fields.day}}, {{table}} - {{title}}"
+    sortable_fields: ["title", "weight", "commit_date"]
+    folder: "data/artist-alley"
+    create: true
+    delete: true
+    format: "yaml"
+    extension: "yml"
+    editor:
+      preview: false
+    preview_path: "artist-alley/"
+    slug: "{{fields.title}}-{{fields.day}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Image", name: "image", widget: "image", default: "/images/avatar.png" }
+      - {
+          label: "Weight",
+          name: "weight",
+          widget: "number",
+          value_type: "int",
+          default: 1,
+        }
+      - label: "Social Links"
+        name: "social"
+        widget: "list"
+        required: false
+        fields:
+          - label: "Platform"
+            name: "platform"
+            widget: "select"
+            options:
+              - { label: "Bluesky", value: "Bluesky" }
+              - { label: "Carrd", value: "Carrd" }
+              - { label: "Derpibooru", value: "Derpibooru" }
+              - { label: "DeviantArt", value: "DeviantArt" }
+              - { label: "Discord", value: "Discord" }
+              - { label: "Etsy", value: "Etsy" }
+              - { label: "Facebook", value: "Facebook" }
+              - { label: "FurAffinity", value: "FurAffinity" }
+              - { label: "Instagram", value: "Instagram" }
+              - { label: "Linktree", value: "Linktree" }
+              - { label: "Mastodon", value: "Mastodon" }
+              - { label: "Matrix", value: "Matrix" }
+              - { label: "MixCloud", value: "MixCloud" }
+              - { label: "Newgrounds", value: "Newgrounds" }
+              - { label: "Shop", value: "Shop" }
+              - { label: "SoundCloud", value: "SoundCloud" }
+              - { label: "Telegram", value: "Telegram" }
+              - { label: "Tumblr", value: "Tumblr" }
+              - { label: "Twitch", value: "Twitch" }
+              - { label: "Twitter", value: "Twitter" }
+              - { label: "Wattpad", value: "Wattpad" }
+              - { label: "Website", value: "Website" }
+              - { label: "YouTube", value: "YouTube" }
+          - { label: "Link", name: "link", widget: "string" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Table", name: "table", widget: "string", required: false }
+      - label: "Day"
+        name: "day"
+        widget: "select"
+        options:
+          - { label: "Thursday", value: "Thursday" }
+          - { label: "Friday", value: "Friday" }
+          - { label: "Saturday", value: "Saturday" }
+          - { label: "Sunday", value: "Sunday" }
+  - name: "after-dark-market"
+    label: "After Dark Market"
+    summary: "{{fields.day}}, {{table}} - {{title}}"
+    sortable_fields: ["title", "weight", "commit_date"]
+    folder: "data/after-dark-market"
+    create: true
+    delete: true
+    format: "yaml"
+    extension: "yml"
+    editor:
+      preview: false
+    preview_path: "after-dark-market/"
+    slug: "{{fields.title}}-{{fields.day}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Image", name: "image", widget: "image", default: "/images/avatar.png" }
+      - {
+          label: "Weight",
+          name: "weight",
+          widget: "number",
+          value_type: "int",
+          default: 1,
+        }
+      - label: "Social Links"
+        name: "social"
+        widget: "list"
+        required: false
+        fields:
+          - label: "Platform"
+            name: "platform"
+            widget: "select"
+            options:
+              - { label: "Bluesky", value: "Bluesky" }
+              - { label: "Carrd", value: "Carrd" }
+              - { label: "Derpibooru", value: "Derpibooru" }
+              - { label: "DeviantArt", value: "DeviantArt" }
+              - { label: "Discord", value: "Discord" }
+              - { label: "Etsy", value: "Etsy" }
+              - { label: "Facebook", value: "Facebook" }
+              - { label: "FurAffinity", value: "FurAffinity" }
+              - { label: "Instagram", value: "Instagram" }
+              - { label: "Linktree", value: "Linktree" }
+              - { label: "Mastodon", value: "Mastodon" }
+              - { label: "Matrix", value: "Matrix" }
+              - { label: "MixCloud", value: "MixCloud" }
+              - { label: "Newgrounds", value: "Newgrounds" }
+              - { label: "Shop", value: "Shop" }
+              - { label: "SoundCloud", value: "SoundCloud" }
+              - { label: "Telegram", value: "Telegram" }
+              - { label: "Tumblr", value: "Tumblr" }
+              - { label: "Twitch", value: "Twitch" }
+              - { label: "Twitter", value: "Twitter" }
+              - { label: "Wattpad", value: "Wattpad" }
+              - { label: "Website", value: "Website" }
+              - { label: "YouTube", value: "YouTube" }
+          - { label: "Link", name: "link", widget: "string" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Table", name: "table", widget: "string", required: false }
+      - label: "Day"
+        name: "day"
+        widget: "select"
+        options:
+          - { label: "Friday", value: "Friday" }
+          - { label: "Saturday", value: "Saturday" }
   - name: "home"
     label: "Homepage"
     files:
